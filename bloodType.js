@@ -1,1 +1,0 @@
-export default {"categories":["A","B","O","AB"],"freqAccList":[34,61,88,100]}
