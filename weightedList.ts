@@ -25,8 +25,8 @@ export default new Structure(read(async CSV => {
 }), 
     ({categories, freqAccList}) => new Nominal<[]>({
         inputMaterials: [] as any,
-        rand(seed){
-            const range = freqAccList.length
+        rand(seed: number){
+            const range = freqAccList[freqAccList.length]
             let i = 0
             while(freqAccList[i] < seed * range) {
                 i++
