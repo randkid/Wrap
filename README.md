@@ -23,3 +23,6 @@ Refer to [Randkid](https://github.com/randkid/Randkid).
 import material from "./mod.ts"
 console.log(material.rand(Math.random()))
 ```
+## Why is this necessary?
+CSV file can't be imported.  
+This provides importable JS file.
