@@ -1,1 +1,1 @@
-export {default as weightedList} from "./weightedList.ts"
+export * from "./structure/mod.ts"
