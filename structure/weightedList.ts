@@ -1,6 +1,6 @@
 import read from "../read.ts"
 import process from "../process.ts"
-import { Nominal } from "https://raw.githubusercontent.com/randkid/Randkid/master/mod.ts"
+import { Nominal } from "../deps.ts"
 import Structure from "../Structure.ts"
 
 export default new Structure(read(async CSV => {
