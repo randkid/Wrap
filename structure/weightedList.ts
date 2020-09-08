@@ -23,7 +23,7 @@ export default new Structure(read(async CSV => {
     )(CSV)
     return {categories, freqAccList}
 }), 
-    ({categories, freqAccList}) => new Nominal<[]>({
+    ({categories, freqAccList}) => new Nominal<string, any[]>({
         inputMaterials: [] as any,
         rand(seed: number){
             const range = freqAccList[freqAccList.length - 1]
