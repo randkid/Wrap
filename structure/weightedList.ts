@@ -27,11 +27,23 @@ export default new Structure(read(async CSV => {
         inputMaterials: [] as any,
         rand(seed: number){
             const range = freqAccList[freqAccList.length - 1]
-            let i = 0
-            while(freqAccList[i] < seed * range) {
-                i++
+            const target = seed * range
+            const bSearch = (first: number, last: number): number => {
+                const mid = Math.floor( (first + last) / 2 )
+                if (first >= last) {
+                    if (freqAccList[mid] > target) {
+                        return mid
+                    } else {
+                        return mid + 1
+                    }
+                }
+                if (freqAccList[mid] > target) {
+                    return bSearch(first, mid - 1)
+                } else {
+                    return bSearch(mid + 1, last)
+                }
             }
-            return categories[i]
+            return categories[bSearch(0, freqAccList.length - 1)]
         },
         categories
     })
