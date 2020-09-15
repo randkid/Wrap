@@ -3,7 +3,7 @@ import process from "../process.ts"
 import { Nominal } from "../deps.ts"
 import Structure from "../Structure.ts"
 
-export default new class WeightedList<T> extends Structure<string, (item: string) => T, any[]> {
+export default new class WeightedList<T> extends Structure<string, (item: string) => T, {categories: string[], freqAccList: number[]}, any[]> {
     async toJson(filename: string, option: (item: string) => T) {
         return read(async CSV => {
             const categories: string[] = []
@@ -26,7 +26,7 @@ export default new class WeightedList<T> extends Structure<string, (item: string
             return {categories, freqAccList}
         })(filename)
     }
-    getMaterial({categories, freqAccList}: any) {
+    getMaterial({categories, freqAccList}: {categories: string[], freqAccList: number[]}) {
         return new Nominal<string, any[]>({
             inputMaterials: [] as any,
             rand(seed: number){
