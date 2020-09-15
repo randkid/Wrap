@@ -1,17 +1,14 @@
 import { Material } from "https://raw.githubusercontent.com/randkid/Randkid/master/mod.ts"
 
-export default class Structure<T, I extends Material<any, any[]>[]> {
-    toJson: (filename: string) => Promise<any>
-    toMaterial: (input: any) => Material<T, I>
-
-    constructor(toJson: (filename: string) => Promise<any>, toMaterial: (input: any) => Material<T, I>){
-        this.toJson = toJson
-        this.toMaterial = toMaterial
+export default class Structure<T, Option, I extends Material<any, any[]>[]> {
+    async toJson(filename: string, option?: Option): Promise<any> {
+        return undefined as unknown as Promise<any>
     }
-    async convert(fromFilename: string, toFilename: string){
-        Deno.writeTextFile(toFilename, "export default " + JSON.stringify(await this.toJson(fromFilename)))
+    getMaterial(input: any): Material<T, I> {
+        return undefined as unknown as Material<T, I>
     }
-    getMaterial(input: any){
-        return this.toMaterial(input)
+    
+    async convert(fromFilename: string, toFilename: string, option?: Option){
+        Deno.writeTextFile(toFilename, "export default " + JSON.stringify(await this.toJson(fromFilename, option)))
     }
 }
