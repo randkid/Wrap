@@ -3,10 +3,10 @@ import process from "../process.ts"
 import { Nominal } from "../deps.ts"
 import Structure from "../Structure.ts"
 
-export default new class WeightedList<T> extends Structure<string, (item: string) => T, {categories: string[], freqAccList: number[]}, any[]> {
-    async toJson(filename: string, option: (item: string) => T) {
+export default new class WeightedList<T> extends Structure<T, (item: string) => T, {categories: T[], freqAccList: number[]}, any[]> {
+    async toJson(filename: string, map: (item: string) => T) {
         return read(async CSV => {
-            const categories: string[] = []
+            const categories: T[] = []
             const freqAccList: number[] = []
             let freqAcc = 0
     
@@ -16,7 +16,7 @@ export default new class WeightedList<T> extends Structure<string, (item: string
                 () => {},
                 [
                     category => {
-                        categories.push(category)
+                        categories.push(map(category))
                     },
                     freq => {
                         freqAccList.push(freqAcc += Number(freq))
@@ -26,8 +26,8 @@ export default new class WeightedList<T> extends Structure<string, (item: string
             return {categories, freqAccList}
         })(filename)
     }
-    getMaterial({categories, freqAccList}: {categories: string[], freqAccList: number[]}) {
-        return new Nominal<string, any[]>({
+    getMaterial({categories, freqAccList}: {categories: T[], freqAccList: number[]}) {
+        return new Nominal<T, any[]>({
             inputMaterials: [] as any,
             rand(seed: number){
                 const range = freqAccList[freqAccList.length - 1]
