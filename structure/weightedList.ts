@@ -4,7 +4,7 @@ import { Nominal } from "../deps.ts"
 import Structure from "../Structure.ts"
 
 export default new class WeightedList<T> extends Structure<T, (item: string) => T, {categories: T[], freqAccList: number[]}, any[]> {
-    async toJson(filename: string, map: (item: string) => T) {
+    async toJson(filename: string, map?: (item: string) => T) {
         return read(async CSV => {
             const categories: T[] = []
             const freqAccList: number[] = []
@@ -16,7 +16,7 @@ export default new class WeightedList<T> extends Structure<T, (item: string) => 
                 () => {},
                 [
                     category => {
-                        categories.push(map(category))
+                        categories.push(map?.(category) || category as unknown as T)
                     },
                     freq => {
                         freqAccList.push(freqAcc += Number(freq))
