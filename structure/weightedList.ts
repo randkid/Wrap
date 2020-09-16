@@ -3,7 +3,7 @@ import process from "../process.ts"
 import { Nominal } from "../deps.ts"
 import Structure from "../Structure.ts"
 
-export default new class WeightedList<T> extends Structure<T, (item: string) => T, {categories: T[], freqAccList: number[]}, any[]> {
+export class WeightedList<T> extends Structure<T, (item: string) => T, {categories: T[], freqAccList: number[]}, any[]> {
     async toJson(filename: string, map?: (item: string) => T) {
         return read(async CSV => {
             const categories: T[] = []
@@ -53,3 +53,5 @@ export default new class WeightedList<T> extends Structure<T, (item: string) => 
         })
     }
 }
+
+export default new WeightedList
